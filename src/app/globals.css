@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{--ink:#172b3a;--muted:#758494;--line:#e8edf0;--green:#168767;--pale:#f3f8f6}*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}button{cursor:pointer}.font-display{font-family:Manrope,sans-serif}.onboard-bg{background:radial-gradient(ellipse at 75% 2%,#e4f6eb 0,transparent 28%),linear-gradient(135deg,#f8fbf9,#f5f8fa)}.industry-card{transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.industry-card:hover{transform:translateY(-2px);border-color:#8bcbb1;box-shadow:0 12px 28px #164c3610}.industry-card[aria-pressed=true]{border-color:#168767;background:#f4fbf7;box-shadow:0 0 0 2px #1687671c}.soft-scroll::-webkit-scrollbar{height:6px}.soft-scroll::-webkit-scrollbar-thumb{background:#d5e0da;border-radius:8px}
