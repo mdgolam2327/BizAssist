@@ -27,7 +27,16 @@ export async function createBusiness(input: unknown) {
     p_billing_enabled: parsed.data.billingEnabled,
     p_payment_preference: parsed.data.paymentPreference,
   });
-  if (error) return { error: error.message.includes('industry') ? 'That business category is currently unavailable.' : 'We could not create this business. Please try again.' };
+  if (error) {
+    // Keep database details in server logs while giving a useful, safe action to the user.
+    console.error('Business onboarding RPC failed', { code: error.code, message: error.message });
+    if (error.code === 'PGRST202' || error.message.toLowerCase().includes('create_business_onboarding')) {
+      return { error: 'The BizAssist database setup is missing. Apply the onboarding migration in Supabase, then try again.' };
+    }
+    if (error.message.toLowerCase().includes('industry')) return { error: 'That business category is unavailable. Apply the latest BizAssist migration and try again.' };
+    if (error.code === '23514') return { error: 'One of the details does not match the required format. Check the GSTIN and preferences.' };
+    return { error: 'We could not create this business. Please check the server logs for the Supabase error.' };
+  }
   const result = data as { business_id?: string } | null;
   if (!result?.business_id) return { error: 'Business setup did not complete. Please try again.' };
   redirect(`/business/${result.business_id}`);
